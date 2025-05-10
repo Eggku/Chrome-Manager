@@ -28,7 +28,7 @@ jobs:
           choco install googlechrome --yes
       - name: Build and Package
         run: |
-          pyinstaller --onefile --windowed --icon=app.ico --noupx --hidden-import=win32gui --hidden-import=requests --hidden-import=keyboard --hidden-import=mouse --hidden-import=wmi --hidden-import=sv_ttk --hidden-import=PIL --hidden-import=win11toast chrome_manager.py
+          pyinstaller --onefile --windowed --icon=app.ico --noupx --add-data "app.ico;." --hidden-import=win32gui --hidden-import=requests --hidden-import=keyboard --hidden-import=mouse --hidden-import=wmi --hidden-import=sv_ttk --hidden-import=PIL --hidden-import=win11toast chrome_manager.py
           echo "Build completed. Check dist/ folder for the EXE file."
         shell: cmd
       - name: Upload artifact
