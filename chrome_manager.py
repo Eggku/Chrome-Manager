@@ -116,11 +116,19 @@ class ChromeManager:
         self.random_delayed = tk.BooleanVar(value=False)
         
         try:
+        if getattr(sys, 'frozen', False):  # 检查是否为打包应用
+            icon_path = os.path.join(sys._MEIPASS, "app.ico")
+        else:
             icon_path = os.path.join(os.path.dirname(__file__), "app.ico")
-            if os.path.exists(icon_path):
-                self.root.iconbitmap(icon_path)
-        except Exception as e:
-            print(f"设置图标失败: {str(e)}")
+        if os.path.exists(icon_path):
+            self.root.iconbitmap(icon_path)  # Tkinter 窗口图标
+            # 对于托盘图标，也使用这个路径
+            icon_handle = win32gui.LoadImage(0, icon_path, win32con.IMAGE_ICON, 0, 0, win32con.LR_LOADFROMFILE | win32con.LR_DEFAULTSIZE)
+        else:
+            icon_handle = win32gui.LoadIcon(0, win32con.IDI_APPLICATION)  # 默认图标
+    except Exception as e:
+        print(f"设置图标失败: {str(e)}")
+        icon_handle = win32gui.LoadIcon(0, win32con.IDI_APPLICATION)
         
         # 设置固定的窗口大小
         self.window_width = 700
