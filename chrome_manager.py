@@ -104,7 +104,7 @@ class ChromeManager:
                 json.dump({}, f, ensure_ascii=False, indent=4)
                 
         self.root = tk.Tk()
-        self.root.title("NoBiggie社区Chrome多窗口管理器 V2.0")
+        self.root.title("Chrome Sync")
         
         # 先隐藏主窗口，避免闪烁
         self.root.withdraw()
@@ -647,18 +647,18 @@ class ChromeManager:
         
         donate_label = ttk.Label(
             donate_frame, 
-            text="铸造一个看上去没什么用的NFT 0.1SOL（其实就是打赏啦 😁）",
+            text="博客",
             cursor="hand2",
             foreground="black"
             # 移除字体设置，使用系统默认字体
         )
         donate_label.pack(side=tk.LEFT)
-        donate_label.bind("<Button-1>", lambda e: webbrowser.open("https://truffle.wtf/project/Devilflasher"))
+        donate_label.bind("<Button-1>", lambda e: webbrowser.open("https://www.444461.xyz"))
 
         author_frame = ttk.Frame(footer_frame)
         author_frame.pack(side=tk.RIGHT)
 
-        ttk.Label(author_frame, text="Compiled by Devilflasher").pack(side=tk.LEFT)
+        ttk.Label(author_frame, text="Compiled by 444461").pack(side=tk.LEFT)
 
         ttk.Label(author_frame, text="  ").pack(side=tk.LEFT)
 
@@ -669,7 +669,7 @@ class ChromeManager:
             font=("Arial", 9)
         )
         twitter_label.pack(side=tk.LEFT)
-        twitter_label.bind("<Button-1>", lambda e: webbrowser.open("https://x.com/DevilflasherX"))
+        twitter_label.bind("<Button-1>", lambda e: webbrowser.open("https://www.444461.xyz"))
 
         ttk.Label(author_frame, text="  ").pack(side=tk.LEFT)
 
@@ -680,7 +680,7 @@ class ChromeManager:
             font=("Arial", 9)
         )
         telegram_label.pack(side=tk.LEFT)
-        telegram_label.bind("<Button-1>", lambda e: webbrowser.open("https://t.me/devilflasher0"))
+        telegram_label.bind("<Button-1>", lambda e: webbrowser.open("https://www.444461.xyz"))
 
     def toggle_select_all(self, event=None):
         #切换全选状态
