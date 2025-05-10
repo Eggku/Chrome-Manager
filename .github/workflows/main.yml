@@ -1,42 +1,38 @@
 name: Auto Build and Package for Windows
-
 on:
   push:
     branches:
-      - main  # 替换为你的实际分支名，如果不是 main
+      - main
   pull_request:
     branches:
       - main
-
 jobs:
   build:
-    runs-on: windows-latest  # 使用 Windows 64-bit 运行器，兼容 Windows 10/11
-
+    runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # 拉取仓库代码
-
+        uses: actions/checkout@v3
+      - name: Verify files in directory  # 新增步骤
+        run: dir
+        shell: cmd
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  # Python 3.9+；如果需要更高版本，如 '3.10'，请手动调整
-
+          python-version: '3.9'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  # 使用 requirements.txt 安装所有依赖
-
+          pip install -r requirements.txt
       - name: Install Chrome Browser
         run: |
-          choco install googlechrome --yes  # 使用 Chocolatey 安装最新 Chrome 浏览器
-          # 如果打包过程不需要 Chrome，可以注释掉此步骤
-
+          choco install googlechrome --yes
       - name: Build and Package
-        run: pyinstaller --onefile --windowed --icon=app.ico --noupx --hidden-import=win32gui --hidden-import=requests --hidden-import=keyboard --hidden-import=mouse --hidden-import=wmi --hidden-import=sv_ttk --hidden-import=PIL --hidden-import=win11toast chrome_manager.py  # 添加 --icon 和 --noupx
-        shell: cmd  # 指定使用 cmd.exe 以避免 PowerShell 解析错误
-
+        run: |
+          pyinstaller --onefile --windowed --icon=app.ico --noupx --hidden-import=win32gui --hidden-import=requests --hidden-import=keyboard --hidden-import=mouse --hidden-import=wmi --hidden-import=sv_ttk --hidden-import=PIL --hidden-import=win11toast chrome_manager.py
+          echo "Build completed. Check dist/ folder for the EXE file."
+        shell: cmd
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: chrome-manager-package
-          path: dist/  # PyInstaller 默认输出目录
+          path: dist/
